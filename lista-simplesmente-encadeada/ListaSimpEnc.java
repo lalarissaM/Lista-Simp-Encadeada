@@ -109,17 +109,45 @@ public class ListaSimpEnc<T> implements IListaSimpEnc<T> {
             inicio=inicio.getProximo();
             contElementos--;
         }
-
     }
 
     @Override
     public void RemoverFim() {
-
+        if (!estaVazia()) {
+            if (inicio == fim) {
+                RemoverInicio();
+            }else {
+                NoSimpEnc<T> aux = inicio;
+                for (int i = 0; i < contElementos; i++) {
+                    if(aux.getProximo().equals(fim)) {
+                        aux.setProximo(null);
+                        fim=aux;
+                    }
+                    aux=aux.getProximo();
+                }
+                contElementos--;
+            }
+        }
     }
 
     @Override
     public void RemoverElemento(T Elemento) {
 
+        if (inicio==fim) {
+            RemoverInicio();
+        }else {
+            if (fim==Elemento) {
+                RemoverFim();
+            }else {
+                NoSimpEnc<T> aux = inicio;
+                for (int i = 0; i < contElementos; i++) {
+                    if (aux.getProximo().equals(Elemento)) {
+                        aux.setProximo(aux.getProximo().getProximo());
+                    }
+                    aux = aux.getProximo();
+                }
+            }
+        }
     }
 
     @Override
